@@ -65,13 +65,13 @@
 
     <script>
         function checkAnswer(answer) {
-            const correctAnswer = 'A';
+            const correctAnswer = 'A'; // 正確答案
             const errorElement = document.getElementById('error');
 
             if (answer === correctAnswer) {
-                window.location.href = 'knowledge2.html'; // 正確進入下一個知識頁面
+                window.location.href = '../knowledge/knowledge2.html'; // 跳轉到下一知識頁
             } else {
-                errorElement.textContent = "❌ 錯誤！ESG 是環境、社會和治理的縮寫。";
+                errorElement.textContent = "❌ 錯誤！請再檢查您的答案。";
             }
         }
     </script>
