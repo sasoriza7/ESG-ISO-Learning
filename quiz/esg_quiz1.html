@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 測驗</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 600px;
+            text-align: left;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .feedback {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ESG 測驗</h1>
+        <div class="question">
+            <p>1. ESG 中「S」代表什麼？</p>
+            <button class="button" onclick="checkAnswer(this, 'B')">A. Sustainability（永續發展）</button>
+            <button class="button" onclick="checkAnswer(this, 'B')">B. Social（社會）</button>
+            <button class="button" onclick="checkAnswer(this, 'B')">C. Strategy（策略）</button>
+            <p class="feedback"></p>
+        </div>
+        <a href="../knowledge/esg1.html" class="button">返回上一頁</a>
+        <a href="../knowledge/esg2.html" id="nextPage" class="button" style="display:none;">下一頁</a>
+    </div>
+
+    <script>
+        let correctCount = 0;
+
+        function checkAnswer(button, correctAnswer) {
+            const feedback = button.nextElementSibling;
+
+            if (button.textContent.includes(correctAnswer)) {
+                feedback.textContent = "✔ 正確！";
+                feedback.style.color = "green";
+                correctCount++;
+                if (correctCount === 1) {
+                    document.getElementById("nextPage").style.display = "inline-block";
+                }
+            } else {
+                feedback.textContent = "❌ 錯誤，請再試一次！";
+                feedback.style.color = "red";
+            }
+            feedback.style.display = "block";
+        }
+    </script>
+</body>
+</html>
