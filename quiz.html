@@ -5,20 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESG & ISO 測驗</title>
     <style>
-        /* 網頁整體樣式 */
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(to right, #f7f7f7, #e6e6e6);
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        /* 中央卡片樣式 */
         .quiz-container {
             background: #fff;
             padding: 20px 30px;
@@ -28,46 +25,53 @@
             text-align: center;
         }
 
-        /* 標題樣式 */
         h1 {
             color: #333;
             font-size: 24px;
             margin-bottom: 20px;
         }
 
-        /* 問題樣式 */
         p {
             color: #555;
             font-size: 18px;
             margin-bottom: 15px;
         }
 
-        /* 按鈕樣式 */
-        button {
+        .button {
             background-color: #4CAF50;
-            color: white;
             border: none;
-            border-radius: 5px;
+            color: white;
             padding: 10px 20px;
             margin: 5px;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
+        .button:hover {
             background-color: #45a049;
         }
 
-        button:active {
-            background-color: #3e8e41;
+        .button.correct {
+            background-color: #28a745; /* 正確答案顏色 */
         }
 
-        /* 回饋文字樣式 */
-        #result {
+        .button.wrong {
+            background-color: #dc3545; /* 錯誤答案顏色 */
+        }
+
+        .feedback {
             font-size: 16px;
-            margin-top: 20px;
-            color: #4CAF50;
+            margin-top: 10px;
+        }
+
+        .feedback.correct {
+            color: #28a745; /* 正確回饋 */
+        }
+
+        .feedback.wrong {
+            color: #dc3545; /* 錯誤回饋 */
         }
     </style>
 </head>
@@ -76,30 +80,48 @@
         <h1>ESG & ISO 測驗</h1>
 
         <p>1. ESG 是什麼的縮寫？</p>
-        <button onclick="checkAnswer(1, 'A')">A. Environmental, Social, Governance</button>
-        <button onclick="checkAnswer(1, 'B')">B. Economic, Social, Government</button>
-        <button onclick="checkAnswer(1, 'C')">C. Ethics, Sustainability, Growth</button>
+        <button class="button" onclick="checkAnswer(1, 'A', this)">A. Environmental, Social, Governance</button>
+        <button class="button" onclick="checkAnswer(1, 'B', this)">B. Economic, Social, Government</button>
+        <button class="button" onclick="checkAnswer(1, 'C', this)">C. Ethics, Sustainability, Growth</button>
+        <p id="feedback-1" class="feedback"></p>
 
         <p>2. ISO 14001 主要關注哪個領域？</p>
-        <button onclick="checkAnswer(2, 'A')">A. 公司治理</button>
-        <button onclick="checkAnswer(2, 'B')">B. 環境管理</button>
-        <button onclick="checkAnswer(2, 'C')">C. 社會責任</button>
-
-        <p id="result"></p>
+        <button class="button" onclick="checkAnswer(2, 'A', this)">A. 公司治理</button>
+        <button class="button" onclick="checkAnswer(2, 'B', this)">B. 環境管理</button>
+        <button class="button" onclick="checkAnswer(2, 'C', this)">C. 社會責任</button>
+        <p id="feedback-2" class="feedback"></p>
     </div>
 
     <script>
-        function checkAnswer(question, answer) {
+        function checkAnswer(question, answer, button) {
             let correctAnswers = {
                 1: 'A',
                 2: 'B'
             };
-            
-            if (correctAnswers[question] === answer) {
-                document.getElementById("result").innerHTML = "✔️ 答對了！";
+
+            // 確認正確與否
+            let isCorrect = correctAnswers[question] === answer;
+
+            // 修改按鈕顏色
+            if (isCorrect) {
+                button.classList.add('correct');
             } else {
-                document.getElementById("result").innerHTML = "❌ 錯誤，請再試一次！";
+                button.classList.add('wrong');
             }
+
+            // 顯示回饋
+            let feedbackElement = document.getElementById(`feedback-${question}`);
+            if (isCorrect) {
+                feedbackElement.textContent = "✔️ 答對了！";
+                feedbackElement.classList.add('correct');
+            } else {
+                feedbackElement.textContent = "❌ 錯誤，請再試一次！";
+                feedbackElement.classList.add('wrong');
+            }
+
+            // 禁用所有按鈕，避免重複作答
+            let buttons = button.parentElement.querySelectorAll('.button');
+            buttons.forEach(btn => btn.disabled = true);
         }
     </script>
 </body>
