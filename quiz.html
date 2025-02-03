@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG & ISO 測驗</title>
+</head>
+<body>
+    <h1>ESG & ISO 測驗</h1>
+
+    <p>1. ESG 是什麼的縮寫？</p>
+    <button onclick="checkAnswer(1, 'A')">A. Environmental, Social, Governance</button>
+    <button onclick="checkAnswer(1, 'B')">B. Economic, Social, Government</button>
+    <button onclick="checkAnswer(1, 'C')">C. Ethics, Sustainability, Growth</button>
+
+    <p>2. ISO 14001 主要關注哪個領域？</p>
+    <button onclick="checkAnswer(2, 'A')">A. 公司治理</button>
+    <button onclick="checkAnswer(2, 'B')">B. 環境管理</button>
+    <button onclick="checkAnswer(2, 'C')">C. 社會責任</button>
+
+    <p id="result"></p>
+
+    <script>
+        function checkAnswer(question, answer) {
+            let correctAnswers = {
+                1: 'A',
+                2: 'B'
+            };
+            
+            if (correctAnswers[question] === answer) {
+                document.getElementById("result").innerHTML = "✔️ 答對了！";
+            } else {
+                document.getElementById("result").innerHTML = "❌ 錯誤，請再試一次！";
+            }
+        }
+    </script>
+</body>
+</html>
