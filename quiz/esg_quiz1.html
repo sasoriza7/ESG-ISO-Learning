@@ -28,7 +28,7 @@
             color: #333;
         }
         .question {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .button {
             background-color: #4CAF50;
@@ -49,40 +49,82 @@
             font-size: 14px;
             display: none;
         }
+        .disabled {
+            background-color: gray;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>ESG 測驗</h1>
-        <div class="question">
+
+        <!-- 第一題 -->
+        <div class="question" id="question1">
             <p>1. ESG 中「S」代表什麼？</p>
-            <button class="button" onclick="checkAnswer(this, 'B')">A. Sustainability（永續發展）</button>
-            <button class="button" onclick="checkAnswer(this, 'B')">B. Social（社會）</button>
-            <button class="button" onclick="checkAnswer(this, 'B')">C. Strategy（策略）</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 1)">A. Sustainability（永續發展）</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 1)">B. Social（社會）</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 1)">C. Strategy（策略）</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 1)">D. Service（服務）</button>
             <p class="feedback"></p>
         </div>
+
+        <!-- 第二題 -->
+        <div class="question" id="question2">
+            <p>2. 下列何者最能說明 ESG 與傳統 CSR 的不同？</p>
+            <button class="button" onclick="checkAnswer(this, 'B', 2)">A. ESG 僅關注環境議題，而 CSR 則涵蓋更廣。</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 2)">B. CSR 偏重公益捐贈，ESG 則強調系統性風險管理與機會發掘。</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 2)">C. ESG 只適用於大型企業。</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 2)">D. CSR 是政府強制要求，ESG 則是企業自發行動。</button>
+            <p class="feedback"></p>
+        </div>
+
+        <!-- 第三題 -->
+        <div class="question" id="question3">
+            <p>3. 台灣從 2025 年起，根據新規定，下列哪一項是撰寫永續報告書的必要內容？</p>
+            <button class="button" onclick="checkAnswer(this, 'B', 3)">A. 僅需揭露財務報告資訊</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 3)">B. 必須依據 SASB、GRI 或 IFRS 永續揭露準則揭露關鍵指標</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 3)">C. 不需第三方確信</button>
+            <button class="button" onclick="checkAnswer(this, 'B', 3)">D. 僅限於環境議題，不需涉及社會與治理</button>
+            <p class="feedback"></p>
+        </div>
+
         <a href="../knowledge/esg1.html" class="button">返回上一頁</a>
-        <a href="../knowledge/esg2.html" id="nextPage" class="button" style="display:none;">下一頁</a>
+        <a href="../knowledge/esg2.html" id="nextPage" class="button disabled">下一頁</a>
     </div>
 
     <script>
-        let correctCount = 0;
+        // 記錄每題是否正確
+        const correctAnswers = {
+            1: false,
+            2: false,
+            3: false
+        };
 
-        function checkAnswer(button, correctAnswer) {
-            const feedback = button.nextElementSibling;
+        function checkAnswer(button, correctAnswer, questionId) {
+            const feedback = button.parentElement.querySelector('.feedback');
 
             if (button.textContent.includes(correctAnswer)) {
                 feedback.textContent = "✔ 正確！";
                 feedback.style.color = "green";
-                correctCount++;
-                if (correctCount === 1) {
-                    document.getElementById("nextPage").style.display = "inline-block";
-                }
+                correctAnswers[questionId] = true; // 記錄此題正確
             } else {
                 feedback.textContent = "❌ 錯誤，請再試一次！";
                 feedback.style.color = "red";
             }
+
             feedback.style.display = "block";
+            checkAllCorrect();
+        }
+
+        function checkAllCorrect() {
+            // 檢查所有題目是否都答對
+            const allCorrect = Object.values(correctAnswers).every(value => value);
+            const nextPageButton = document.getElementById("nextPage");
+
+            if (allCorrect) {
+                nextPageButton.classList.remove("disabled");
+            }
         }
     </script>
 </body>
